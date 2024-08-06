@@ -13,7 +13,11 @@
     <application>
         <service 
             android:name=".src.BubbleService" 
-            android:foregroundServiceType="specialUse" />
+            android:foregroundServiceType="specialUse">
+            <property 
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" 
+                android:value="By using a foreground service, we can ensure that the bubble remains visible and accessible to the user even when they switch to other apps."/>
+        </service>
     </application>
 
 </manifest>
