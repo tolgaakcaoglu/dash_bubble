@@ -115,7 +115,12 @@ class BubbleManager(private val activity: Activity) {
         intent.putExtra(Constants.BUBBLE_OPTIONS_INTENT_EXTRA, bubbleOptions)
         intent.putExtra(Constants.NOTIFICATION_OPTIONS_INTENT_EXTRA, notificationOptions)
 
-        startForegroundService(activity, intent)
+        // startForegroundService(activity, intent)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startForeground(activity, intent)
+        } else {
+            startForeground(activity, intent, FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        }
 
         return true
     }
