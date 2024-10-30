@@ -27,6 +27,24 @@ apply plugin: 'kotlin-parcelize'
 
 android {
     namespace 'dev.moaz.dash_bubble'
+    subprojects { subproject ->
+    if (subproject.name == 'dash_bubble') {
+        subproject.afterEvaluate {
+            // Remove the package attribute from the AndroidManifest.xml
+            def manifestFile = file("${subproject.projectDir}/src/main/AndroidManifest.xml")
+            if (manifestFile.exists()) {
+                def manifestContent = manifestFile.text
+                manifestContent = manifestContent.replaceAll('package="dev.moaz.dash_bubble"', '')
+                manifestFile.text = manifestContent
+            }
+
+            // Add the namespace property to build.gradle
+            subproject.android {
+                namespace = 'dev.moaz.dash_bubble'
+            }
+        }
+    }
+}
     compileSdkVersion 34
 
     compileOptions {
